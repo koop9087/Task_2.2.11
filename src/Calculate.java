@@ -1,38 +1,38 @@
 public class Calculate {
+    public static final int REQUIRED_NUM = 5;
+    public static final int MIN_COUNT = 3;
+
     public static int[] conclusionMatrix(int[][] array) {
-        int size = findSizeofMas(array);
+        int size = findSizeOfMas(array);
         int[] mas = new int[size];
-        int k = 0;
-        int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (array[i][j] == 5) {
-                    count++;
-                }
-            }
-            if(count >= 3) {
+        for (int i = 0, k = 0; i < array.length; i++) {
+            int count = calculateCountOfElement(array[i]);
+            if (count >= MIN_COUNT) {
                 mas[k] = i + 1;
                 k++;
             }
-            count = 0;
         }
         return mas;
     }
 
-    private static int findSizeofMas(int[][] array) {
+    private static int findSizeOfMas(int[][] array) {
         int k = 0;
-        int count = 0;
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (array[i][j] == 5) {
-                    count++;
-                }
-            }
-            if(count >= 3) {
+            int count = calculateCountOfElement(array[i]);
+            if (count >= MIN_COUNT) {
                 k++;
             }
-            count = 0;
         }
         return k;
+    }
+
+    public static int calculateCountOfElement(int[] array) {
+        int count = 0;
+        for (int j = 0; j < array.length; j++) {
+            if (array[j] == REQUIRED_NUM) {
+                count++;
+            }
+        }
+        return count;
     }
 }
